@@ -33,6 +33,7 @@ def loss_fn(node, records):
 Then, to anonymize:
 
 ```python
+import ola
 ola.anonymize(csv_file, k=10, loss=loss_fn, generalizations=gen_rules)
 ```
 
