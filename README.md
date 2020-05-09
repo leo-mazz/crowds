@@ -13,10 +13,10 @@ def custom_gen(value, gen_level):
 gen_rules.add('attr_name', custom_gen, max_level=1)
 ```
 
-In order for the algorithm to work correctly, **the loss function needs to be monotonic**, i.e. non dicreasing for increasing generalization levels. Some information loss functions are provided in `information_loss.py`. It is also possible to define a custom generalization function (which must have the same signature as the following example):
+In order for the algorithm to work correctly, **the loss function needs to be monotonic**, i.e. non-decreasing for increasing generalization levels. Some information loss functions are provided in `information_loss.py`. It is also possible to define a custom generalization function (which must have the same signature as the following example):
 
 ```python
-def loss_fn(gen_rules, gen_status):
+def loss_fn(node, records):
     return 0.0
 ```
 
