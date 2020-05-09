@@ -11,4 +11,4 @@ class Rule():
         return self._levels[level](value)
 
 
-simplest_rule = Rule([lambda x: None]) # Scrape all information
+simplest_rule = Rule([lambda x: None]) # Map all values to None
