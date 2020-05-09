@@ -5,12 +5,18 @@ This is an implementation of the algorithm described by El Emam, Khalet, et al. 
 To define a set of generalization rules:
 
 ```python
-gen_rules = GeneralizationRules()
+from generalizations import Rule
 
-def custom_gen(value, gen_level):
+def first_gen(value):
     return 'value'
 
-gen_rules.add('attr_name', custom_gen, max_level=1)
+def second_gen(value):
+    return 'value'
+
+new_rule = Rule([first_gen, second_gen])
+ruleset = {
+    'attr_name': new_rule,
+}
 ```
 
 In order for the algorithm to work correctly, **the loss function needs to be monotonic**, i.e. non-decreasing for increasing generalization levels. Some information loss functions are provided in `information_loss.py`. It is also possible to define a custom generalization function (which must have the same signature as the following example):
