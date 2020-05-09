@@ -1,4 +1,8 @@
 # Optimal Lattice Anonymization
+**WARNING**: This repository is a work in progress
+
+---
+
 This is an implementation of the algorithm described by El Emam, Khalet, et al. (2009) [1]. Given a dataset, an information loss function, and a set of generalization strategies, it writes to disk a *k*-anonymous version [2], obtained using the single-dimensional global recording model, i.e.: the same values will be mapped consistently to the same generalizations in the new dataset, and the generalization for each dimension will not overlap.
 
 ## Usage
