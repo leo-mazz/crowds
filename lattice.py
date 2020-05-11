@@ -123,11 +123,11 @@ class Node():
         return self.root.suitable_check(release, self, value, max_sup)        
 
     def apply_gen(self):
-        # return data_transform.apply_gen(self.root.records, self.gen_state, self.root.rules)
-        gen_records = copy.deepcopy(self.root.records)
-        for r in gen_records:
-            for col, gen_level in self.gen_state.items():
-                r[col] = self.root.rules[col].apply(r[col], gen_level)
+        gen_records = self.root.records.copy()
+
+        for col, gen_level in self.gen_state.items():
+            gen_records[col] = gen_records[col].apply(
+                self.root.rules[col].level(gen_level), axis=1)
 
         return gen_records
         

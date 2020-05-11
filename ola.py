@@ -3,7 +3,7 @@ import math
 import logging
 
 from lattice import make_lattice, Node
-
+from information_loss import prec_loss
 
 def _add_k_minimal(node, k_min_set):
     """ Add node to k-minimal set, removing all higher nodes in path to leaf """
@@ -125,7 +125,7 @@ def _make_release(records, qis, k):
     return release, stats
 
 
-def anonymize(records, generalization_rules, k, max_sup, info_loss):
+def anonymize(records, generalization_rules, k=5, info_loss=prec_loss, max_sup=0):
     """ Execute OLA """
     logging.info('Building lattice...')
     b_node, t_node = Node.build_network(generalization_rules, records, _check_kanonymity)

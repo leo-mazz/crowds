@@ -3,13 +3,13 @@
 
 ---
 
-This is an implementation of the algorithm described by El Emam, Khalet, et al. (2009) [1]. Given a dataset, an information loss function, and a set of generalization strategies, it writes to disk a *k*-anonymous version [2], obtained using the single-dimensional global recording model, i.e.: the same values will be mapped consistently to the same generalizations in the new dataset, and the generalization for each dimension will not overlap.
+This is an implementation of the algorithm described by El Emam, Khalet, et al. (2009) [1]. Given a [Pandas](https://pandas.pydata.org/) dataframe, an information loss function, and a set of generalization strategies, it returns a *k*-anonymous version [2], obtained using the single-dimensional global recording model, i.e.: the same values will be mapped consistently to the same generalizations in the new dataset, and the generalization for each dimension will not overlap.
 
 ## Usage
 To define a set of generalization rules:
 
 ```python
-from generalizations import Rule
+from generalizations import GenRule
 
 def first_gen(value):
     return 'value'
@@ -17,7 +17,7 @@ def first_gen(value):
 def second_gen(value):
     return 'value'
 
-new_rule = Rule([first_gen, second_gen])
+new_rule = GenRule([first_gen, second_gen])
 ruleset = {
     'attr_name': new_rule,
 }
@@ -34,8 +34,10 @@ Then, to anonymize:
 
 ```python
 import ola
-ola.anonymize(csv_file, k=10, loss=loss_fn, generalizations=gen_rules)
+anonymous_df = ola.anonymize(df, k=10, loss=loss_fn, generalizations=gen_rules)
 ```
+
+Check out [this example](example.py) for more.
 
 ## References
 [1] El Emam, Khaled, et al. "A globally optimal k-anonymity method for the de-identification of health data." Journal of the American Medical Informatics Association 16.5 (2009): 670-682.
