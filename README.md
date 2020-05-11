@@ -26,7 +26,7 @@ ruleset = {
 In order for the algorithm to work correctly, **the loss function needs to be monotonic**, i.e. non-decreasing for increasing generalization levels. Some information loss functions are provided in `information_loss.py`. It is also possible to define a custom generalization function (which must have the same signature as the following example):
 
 ```python
-def loss_fn(node, records):
+def loss_fn(node):
     return 0.0
 ```
 

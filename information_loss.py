@@ -1,7 +1,7 @@
 import math
 from collections import defaultdict
 
-def prec_loss(node, records):
+def prec_loss(node):
     loss = 0
     for qi_name, qi_gen in node.gen_state.items():
         loss += (qi_gen / node.gen_rules[qi_name].max_level)
@@ -9,7 +9,7 @@ def prec_loss(node, records):
     return loss
 
 
-def dm_star_loss(node, records):
+def dm_star_loss(node):
     def equivalence_classes(release, q_ids):
         values = lambda entry: tuple([entry[idx] for idx in q_ids])
 
@@ -32,7 +32,7 @@ def dm_star_loss(node, records):
     return loss
 
 
-def entropy_loss(node, records):
+def entropy_loss(node):
     release = node.apply_gen()
     q_ids = node.gen_rules.keys()
 
@@ -41,14 +41,14 @@ def entropy_loss(node, records):
     for q in q_ids:
         freq_a[q] = defaultdict(int)
         freq_b[q] = defaultdict(int)
-        for a in records:
+        for a in node.root.records:
             freq_a[q][a[q]] += 1
         for b in release:
             freq_b[q][b[q]] += 1
 
     summation = 0
     for q in q_ids:
-        for i, entry in enumerate(records):
+        for i, entry in enumerate(node.root.records):
             a = entry[q]
             b = release[i][q]
             summation += math.log2(freq_a[q][a] / freq_b[q][b])
