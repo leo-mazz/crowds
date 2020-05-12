@@ -1,10 +1,12 @@
 import copy
+import logging
 
 class Node():
     def __init__(self, gen_state, root=None):
         self.gen_state = gen_state
         if root == None:
             self.root = self
+            self.print = logging.debug
         else:
             self.root = root
 
@@ -13,7 +15,7 @@ class Node():
         self._suitable_tag = None
     
     @classmethod
-    def build_network(cls, rules, records, suitable_check, suitable_upwards=True, logger=None):
+    def build_network(cls, rules, records, suitable_check, suitable_upwards=True):
         init_state = {qi: 0 for qi in rules.keys()}
         b_node = cls(init_state)
         b_node.visited_nodes = 0
@@ -25,8 +27,6 @@ class Node():
         b_node.suitable_check = suitable_check
         b_node.suitable_upwards = suitable_upwards
         b_node.records = records
-        if logger != None:
-            b_node.set_logger(logger)
         b_node.make_children()
 
         t_node = b_node
@@ -42,9 +42,6 @@ class Node():
             return 'ROOT node{}'.format(state)
         else:
             return 'node{}'.format(state)
-
-    def set_logger(self, logger):
-        self.root.print = logger.print
 
     def make_children(self):
         for qi, level in self.gen_state.items():
@@ -97,6 +94,10 @@ class Node():
         for p in propagate:
             if p.suitable_tag == None:
                 p.set_non_suitable()
+
+    @property
+    def gen_rules(self):
+        return self.root.rules
     
     @property
     def leaf(self):
@@ -127,7 +128,7 @@ class Node():
 
         for col, gen_level in self.gen_state.items():
             gen_records[col] = gen_records[col].apply(
-                self.root.rules[col].level(gen_level), axis=1)
+                self.root.rules[col].level(gen_level))
 
         return gen_records
         

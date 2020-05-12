@@ -1,3 +1,5 @@
+from utils import df_to_values
+
 import math
 from collections import defaultdict
 
@@ -23,7 +25,8 @@ def dm_star_loss(node):
 
         return eq_classes.values()
 
-    e_classes = equivalence_classes(node.apply_gen(), node.gen_rules.keys())
+    release, qi_idx = df_to_values(node.apply_gen(), node.gen_rules.keys())
+    e_classes = equivalence_classes(release, qi_idx)
     records_per_class = [len(ec) for ec in e_classes]
     loss = 0
     for ec_size in records_per_class:
@@ -33,8 +36,7 @@ def dm_star_loss(node):
 
 
 def entropy_loss(node):
-    release = node.apply_gen()
-    q_ids = node.gen_rules.keys()
+    release, q_ids = df_to_values(node.apply_gen(), node.gen_rules.keys())
 
     freq_a = {}
     freq_b = {}

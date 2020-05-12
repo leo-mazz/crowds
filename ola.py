@@ -1,9 +1,12 @@
+from lattice import make_lattice, Node
+from information_loss import prec_loss
+from utils import df_to_values
+
 import copy
 import math
 import logging
 
-from lattice import make_lattice, Node
-from information_loss import prec_loss
+import pandas as pd
 
 def _add_k_minimal(node, k_min_set):
     """ Add node to k-minimal set, removing all higher nodes in path to leaf """
@@ -19,10 +22,11 @@ def _add_k_minimal(node, k_min_set):
     k_min_set.add(node)
 
 
-def _check_kanonymity(records, node, k, max_sup):
+def _check_kanonymity(df, node, k, max_sup):
         """ Check whether records are k-anonymous for some max suppression """
+        records, qi_indices = df_to_values(df, node.root.rules.keys())
         # Using simple dict instead of 'collections' library: much better space requirements for Python > 3.6
-        qi_values = lambda record: tuple([record[idx] for idx in node.root.rules.keys()])
+        qi_values = lambda record: tuple([record[idx] for idx in qi_indices])
         eq_classes = {}
 
         max_sup = int(len(records) * max_sup / 100)
@@ -91,10 +95,11 @@ def _k_min(b_node, t_node, k, max_sup, k_min_set=set()):
     return k_min_set
 
 
-def _make_release(records, qis, k):
+def _make_release(df, qis, k):
     """ Finalize release by suppressing required records and producing some stats """
+    records, qi_idx = df_to_values(df, qis)
     original_size = len(records)
-    qi_values = lambda record: tuple([record[idx] for idx in qis])
+    qi_values = lambda record: tuple([record[idx] for idx in qi_idx])
 
     eq_classes = {}
     release = []
@@ -122,13 +127,14 @@ def _make_release(records, qis, k):
         'perc_suppressed_records': round((sup_rec/original_size)*100, 2),
     }
 
+    release = pd.DataFrame(release, columns=df.columns)
     return release, stats
 
 
-def anonymize(records, generalization_rules, k=5, info_loss=prec_loss, max_sup=0):
+def anonymize(df, generalization_rules, k=5, info_loss=prec_loss, max_sup=0):
     """ Execute OLA """
     logging.info('Building lattice...')
-    b_node, t_node = Node.build_network(generalization_rules, records, _check_kanonymity)
+    b_node, t_node = Node.build_network(generalization_rules, df, _check_kanonymity)
 
     logging.info('Searching lattice...')
 
@@ -144,7 +150,7 @@ def anonymize(records, generalization_rules, k=5, info_loss=prec_loss, max_sup=0
 
     logging.info('Choosing optimal generalization strategy...')
 
-    losses = [(info_loss.compute(node), node) for node in k_min_nodes]
+    losses = [(info_loss(node), node) for node in k_min_nodes]
     optimal_loss, optimal_node = min(losses, key=lambda x: x[0])
 
     logging.info(f'Best loss ({optimal_loss}) was obtained with node {optimal_node}')
