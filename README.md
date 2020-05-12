@@ -9,7 +9,7 @@ This is an implementation of the algorithm described by El Emam, Khalet, et al. 
 To define a set of generalization rules:
 
 ```python
-from generalizations import GenRule
+from kanon.generalizations import GenRule
 
 def first_gen(value):
     return 'value'
@@ -33,11 +33,11 @@ def loss_fn(node):
 Then, to anonymize:
 
 ```python
-import ola
+from kanon import ola
 anonymous_df = ola.anonymize(df, k=10, loss=loss_fn, generalizations=gen_rules)
 ```
 
-Check out [this example](ola/example.py) for more.
+Check out [this example](kanon/example.py) for more.
 
 ## References
 [1] El Emam, Khaled, et al. "A globally optimal k-anonymity method for the de-identification of health data." Journal of the American Medical Informatics Association 16.5 (2009): 670-682.
