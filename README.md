@@ -37,9 +37,11 @@ from kanon import ola
 anonymous_df = ola.anonymize(df, k=10, loss=loss_fn, generalizations=gen_rules)
 ```
 
-Check out [this example](example/example.py) for more.
+For more, check out [this example](example/example.py), using the "Adult" dataset from the UCI Machine Learning Repository [3].
 
 ## References
 [1] El Emam, Khaled, et al. "A globally optimal k-anonymity method for the de-identification of health data." Journal of the American Medical Informatics Association 16.5 (2009): 670-682.
 
 [2] Sweeney, Latanya. "k-anonymity: A model for protecting privacy." International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems 10.05 (2002): 557-570.
+
+[3] Dua, D. and Graff, C. "UCI Machine Learning Repository." Irvine, CA: University of California, School of Information and Computer Science (2019). 
