@@ -1,7 +1,7 @@
 import pandas as pd
-from ola import anonymize
-from information_loss import dm_star_loss
-from generalizations import GenRule
+from kanon.ola import anonymize
+from kanon.information_loss import dm_star_loss
+from kanon.generalizations import GenRule
 
 column_names = [
     'age',
@@ -36,5 +36,5 @@ generalization_rules = {
     'sex': GenRule([]), # 1-level generalization
 }
 
-adult = pd.read_csv('adult.csv', names=column_names, sep=' *, *', na_values='?', engine='python')
+adult = pd.read_csv('./adult.csv', names=column_names, sep=' *, *', na_values='?', engine='python')
 anonymize(adult, generalization_rules=generalization_rules, k=10, max_sup=0.5, info_loss=dm_star_loss)

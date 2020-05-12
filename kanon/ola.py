@@ -1,6 +1,6 @@
-from lattice import make_lattice, Node
-from information_loss import prec_loss
-from utils import df_to_values
+from .lattice import make_lattice, Node
+from .information_loss import prec_loss
+from .utils import df_to_values
 
 import copy
 import math
