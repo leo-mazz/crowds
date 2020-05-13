@@ -43,14 +43,14 @@ def entropy_loss(node):
     for q in q_ids:
         freq_a[q] = defaultdict(int)
         freq_b[q] = defaultdict(int)
-        for a in node.root.records:
+        for a in node.df:
             freq_a[q][a[q]] += 1
         for b in release:
             freq_b[q][b[q]] += 1
 
     summation = 0
     for q in q_ids:
-        for i, entry in enumerate(node.root.records):
+        for i, entry in enumerate(node.df):
             a = entry[q]
             b = release[i][q]
             summation += math.log2(freq_a[q][a] / freq_b[q][b])

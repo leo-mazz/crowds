@@ -24,7 +24,7 @@ def _add_k_minimal(node, k_min_set):
 
 def _check_kanonymity(df, node, k, max_sup):
         """ Check whether records are k-anonymous for some max suppression """
-        records, qi_indices = df_to_values(df, node.root.rules.keys())
+        records, qi_indices = df_to_values(df, node.gen_rules.keys())
         # Using simple dict instead of 'collections' library: much better space requirements for Python > 3.6
         qi_values = lambda record: tuple([record[idx] for idx in qi_indices])
         eq_classes = {}
