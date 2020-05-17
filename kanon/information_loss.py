@@ -36,6 +36,7 @@ def dm_star_loss(node):
 
 
 def entropy_loss(node):
+    records, q_ids = df_to_values(node.df, node.gen_rules.keys())
     release, q_ids = df_to_values(node.apply_gen(), node.gen_rules.keys())
 
     freq_a = {}
@@ -43,17 +44,19 @@ def entropy_loss(node):
     for q in q_ids:
         freq_a[q] = defaultdict(int)
         freq_b[q] = defaultdict(int)
-        for a in node.df:
+        for a in records:
             freq_a[q][a[q]] += 1
         for b in release:
             freq_b[q][b[q]] += 1
 
     summation = 0
     for q in q_ids:
-        for i, entry in enumerate(node.df):
+        for i, entry in enumerate(records):
             a = entry[q]
             b = release[i][q]
             summation += math.log2(freq_a[q][a] / freq_b[q][b])
 
 
     return -summation
+
+__all__ = ['prec_loss', 'dm_star_loss', 'entropy_loss']
