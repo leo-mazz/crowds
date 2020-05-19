@@ -1,15 +1,14 @@
-# Optimal Lattice Anonymization
-**WARNING**: This repository is a work in progress
+# crowds
+crowds is a Python module that provides a suite of anonymization algorithms, allowing to transform [Pandas](https://pandas.pydata.org/) dataframes so that they satisfy *k*-anonymity or differential privacy. This is a **work in progress**. So far, one algorithm has been implemented (OLA). [Get in touch](mailto:leo@mazzone.space) if you would like to contribute.
 
----
+## Optimal Lattice Anonymization
+This is an implementation of the algorithm described by El Emam, Khalet, et al. (2009) [1]. Given a dataframe, an information loss function, and a set of generalization strategies, it returns a *k*-anonymous version [2], obtained using the single-dimensional global recording model, i.e.: the same values will be mapped consistently to the same generalizations in the new dataset, and the generalization for each dimension will not overlap.
 
-This is an implementation of the algorithm described by El Emam, Khalet, et al. (2009) [1]. Given a [Pandas](https://pandas.pydata.org/) dataframe, an information loss function, and a set of generalization strategies, it returns a *k*-anonymous version [2], obtained using the single-dimensional global recording model, i.e.: the same values will be mapped consistently to the same generalizations in the new dataset, and the generalization for each dimension will not overlap.
-
-## Usage
+### Usage
 To define a set of generalization rules:
 
 ```python
-from kanon.generalizations import GenRule
+from crowds.kanonymity.generalizations import GenRule
 
 def first_gen(value):
     return 'value'
@@ -33,7 +32,7 @@ def loss_fn(node):
 Then, to anonymize:
 
 ```python
-from kanon import ola
+from crowds.kanonymity import ola
 anonymous_df = ola.anonymize(df, k=10, loss=loss_fn, generalizations=gen_rules)
 ```
 
