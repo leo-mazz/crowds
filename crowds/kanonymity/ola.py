@@ -1,6 +1,6 @@
 from .lattice import make_lattice, Node
 from .information_loss import prec_loss
-from .utils import df_to_values
+from .utils import df_to_values, k_anonymity_check
 
 import copy
 import math
@@ -21,35 +21,8 @@ def _add_k_minimal(node, k_min_set):
 
     k_min_set.add(node)
 
-
 def _check_kanonymity(df, node, k, max_sup):
-        """ Check whether records are k-anonymous for some max suppression """
-        records, qi_indices = df_to_values(df, node.gen_rules.keys())
-        # Using simple dict instead of 'collections' library: much better space requirements for Python > 3.6
-        qi_values = lambda record: tuple([record[idx] for idx in qi_indices])
-        eq_classes = {}
-
-        max_sup = int(len(records) * max_sup / 100)
-
-        logging.debug('Making equivalence classes')
-        for r in records:
-            qi_signature = qi_values(r)
-            if qi_signature in eq_classes.keys():
-                eq_classes[qi_signature] +=1
-            else:
-                eq_classes[qi_signature] = 1
-
-        logging.debug('Checking that all equivalence classes have size k')
-        for val in eq_classes.values():
-            if val < k:
-                if max_sup < val:
-                    logging.debug('--> was not k-anonymous')
-                    return False
-                else:
-                    max_sup -= val
-
-        logging.debug('--> was k-anonymous')
-        return True
+    return k_anonymity_check(df, node.gen_rules.keys(), k, max_sup)
 
 def _k_min(b_node, t_node, k, max_sup, k_min_set=set()):
     """ Core of OLA's operation: build k-minimal set with binary search in generalization
@@ -94,7 +67,6 @@ def _k_min(b_node, t_node, k, max_sup, k_min_set=set()):
 
     return k_min_set
 
-
 def _make_release(df, qis, k):
     """ Finalize release by suppressing required records and producing some stats """
     records, qi_idx = df_to_values(df, qis)
@@ -129,7 +101,6 @@ def _make_release(df, qis, k):
 
     release = pd.DataFrame(release, columns=df.columns)
     return release, stats
-
 
 def anonymize(df, generalization_rules, k=5, info_loss=prec_loss, max_sup=0):
     """ Execute OLA """
