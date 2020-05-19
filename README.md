@@ -1,7 +1,7 @@
 # crowds
 crowds is a Python module that provides a suite of anonymization algorithms, allowing to transform [Pandas](https://pandas.pydata.org/) dataframes so that they satisfy *k*-anonymity or differential privacy. This is a **work in progress**. So far, one algorithm has been implemented (OLA). [Get in touch](mailto:leo@mazzone.space) if you would like to contribute.
 
-## Installations
+## Installation
 ### Dependencies
 crowds requires:
 - Python (>= 3.6)
