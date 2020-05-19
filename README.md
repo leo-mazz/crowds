@@ -1,6 +1,22 @@
 # crowds
 crowds is a Python module that provides a suite of anonymization algorithms, allowing to transform [Pandas](https://pandas.pydata.org/) dataframes so that they satisfy *k*-anonymity or differential privacy. This is a **work in progress**. So far, one algorithm has been implemented (OLA). [Get in touch](mailto:leo@mazzone.space) if you would like to contribute.
 
+## Installation
+### Dependencies
+crowds requires:
+- Python (>= 3.6)
+- pandas (>= 0.25.1)
+
+### User installation
+The easiest way to install is using `pip`
+```
+pip install -U crowds
+```
+or `conda`
+```
+conda install crowds
+```
+
 ## Optimal Lattice Anonymization
 This is an implementation of the algorithm described by El Emam, Khalet, et al. (2009) [1]. Given a dataframe, an information loss function, and a set of generalization strategies, it returns a *k*-anonymous version [2], obtained using the single-dimensional global recording model, i.e.: the same values will be mapped consistently to the same generalizations in the new dataset, and the generalization for each dimension will not overlap.
 
