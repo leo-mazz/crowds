@@ -1,7 +1,7 @@
 import pandas as pd
-from kanon.ola import anonymize
-from kanon.information_loss import dm_star_loss
-from kanon.generalizations import GenRule
+from crowds.kanonymity.ola import anonymize
+from crowds.kanonymity.information_loss import dm_star_loss
+from crowds.kanonymity.generalizations import GenRule
 
 column_names = [
     'age',

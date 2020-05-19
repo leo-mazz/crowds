@@ -1,8 +1,8 @@
 from math import log2
 
-from kanon.information_loss import prec_loss, dm_star_loss, entropy_loss
-from kanon.lattice import Node
-from kanon.generalizations import GenRule
+from crowds.kanonymity.information_loss import prec_loss, dm_star_loss, entropy_loss
+from crowds.kanonymity.lattice import Node
+from crowds.kanonymity.generalizations import GenRule
 
 import pandas as pd
 

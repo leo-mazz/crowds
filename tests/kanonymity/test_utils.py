@@ -1,4 +1,4 @@
-from kanon.utils import df_to_values
+from crowds.kanonymity.utils import df_to_values
 
 import pandas as pd
 

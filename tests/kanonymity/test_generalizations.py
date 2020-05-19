@@ -1,4 +1,4 @@
-from kanon.generalizations import GenRule
+from crowds.kanonymity.generalizations import GenRule
 
 import pytest
 

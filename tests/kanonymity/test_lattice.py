@@ -1,5 +1,5 @@
-from kanon.lattice import Node, make_lattice
-from kanon.generalizations import GenRule
+from crowds.kanonymity.lattice import Node, make_lattice
+from crowds.kanonymity.generalizations import GenRule
 
 import pytest
 import pandas as pd

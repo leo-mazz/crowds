@@ -145,8 +145,9 @@ def anonymize(df, generalization_rules, k=5, info_loss=prec_loss, max_sup=0):
         logging.info('No strategy was found! Aborting.')
         return None
 
-    logging.info(f"visited {b_node.visited_nodes} nodes, checked {b_node.checked_nodes} nodes")
-    logging.info(f"num k {b_node.num_suitable} nodes, num not k {b_node.num_not_suitable} nodes")
+    visited_nodes, checked_nodes, num_suitable, num_non_suitable = b_node.lattice_stats
+    logging.info(f"visited {visited_nodes} nodes, checked {checked_nodes} nodes")
+    logging.info(f"num k {num_suitable} nodes, num not k {num_non_suitable} nodes")
 
     logging.info('Choosing optimal generalization strategy...')
 
