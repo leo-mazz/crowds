@@ -15,7 +15,8 @@ crowds requires:
 - pandas (>= 0.25.1)
 
 User installation
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
+
 The easiest way to install is using ``pip`` ::
 
     pip install -U crowds
@@ -26,7 +27,7 @@ or ``conda`` ::
 
 
 Optimal Lattice Anonymization
-------------
+-----------------------------
 This is an implementation of the algorithm described by El Emam, Khalet, et al. (2009) [1]. Given a dataframe, an information loss function, and a set of generalization strategies, it returns a *k*-anonymous version [2], obtained using the single-dimensional global recording model, i.e.: the same values will be mapped consistently to the same generalizations in the new dataset, and the generalization for each dimension will not overlap.
 
 Usage
