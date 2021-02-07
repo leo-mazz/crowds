@@ -66,7 +66,7 @@ Then, to anonymize:
     anonymous_df = ola.anonymize(df, k=10, loss=loss_fn, generalizations=gen_rules)
 
 
-For more, check out `this example <example/example.py>`__, using the "Adult" dataset from the UCI Machine Learning Repository [3].
+For more, check out `this example <examples/kanonymity/ola.py>`__, using the "Adult" dataset from the UCI Machine Learning Repository [3].
 
 References
 ------------
