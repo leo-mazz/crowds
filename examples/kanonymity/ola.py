@@ -45,3 +45,11 @@ generalization_rules = {
 adult = pd.read_csv('../adult.csv', names=column_names, sep=' *, *', na_values='?', engine='python')
 adult_anonymized, transformation = anonymize(adult, generalization_rules=generalization_rules, k=10, max_sup=0.0, info_loss=dm_star_loss)
 print(adult_anonymized.head())
+
+# Another example with different generalization rules
+
+generalization_rules = {
+    'race': GenRule([])
+}
+adult_anonymized, transformation = anonymize(adult, generalization_rules=generalization_rules, k=10, max_sup=0.0, info_loss=dm_star_loss)
+print(adult_anonymized.head())
