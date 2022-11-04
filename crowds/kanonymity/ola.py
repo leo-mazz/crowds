@@ -24,9 +24,14 @@ def _add_k_minimal(node, k_min_set):
 def _check_kanonymity(df, node, k, max_sup):
     return k_anonymity_check(df, node.gen_rules.keys(), k, max_sup)
 
-def _k_min(b_node, t_node, k, max_sup, k_min_set=set()):
+
+def _k_min(b_node, t_node, k, max_sup, k_min_set=None):
     """ Core of OLA's operation: build k-minimal set with binary search in generalization
     strategies of lattice """
+
+    if k_min_set is None:
+        k_min_set = set()
+
     lattice_lvls = make_lattice(b_node, t_node)
     h = len(lattice_lvls)
 
